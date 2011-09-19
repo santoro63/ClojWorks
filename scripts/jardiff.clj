@@ -18,17 +18,13 @@
 	   (do (println header)
 	       (doseq [ x data-list ] (print-body-func x)))))
 
-(def l1 (entry-size-map (first *command-line-args*)))
-(def l2 (entry-size-map (first (rest *command-line-args*))))
+(def file1 (first *command-line-args*))
+(def file2 (first (rest *command-line-args*)))
 
-(print-list-with-header "only in l1"
-  #(println "---" %)
-  (only-in-first-map l1 l2))
-(print-list-with-header "only in l2"
-  #(println "---" %)
-  (only-in-first-map l2 l1))
-(print-list-with-header "different"
-  #(println "---" % " : " (l1 %) " <> " (l2 %))
-  (different-values-in-map l1 l2))
+(let [ l1 (entry-size-map file1)
+       l2 (entry-size-map file2) ]
+  (print-list-with-header (str "only in " file1)  #(println "---" %) (only-in-first-map l1 l2))
+  (print-list-with-header (str "only in " file2)  #(println "---" %) (only-in-first-map l2 l1))
+  (print-list-with-header "different"  #(println "---" % " : " (l1 %) " <> " (l2 %)) (different-values-in-map l1 l2)))
 
 
