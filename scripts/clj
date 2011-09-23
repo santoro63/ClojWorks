@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# required variables
+[ -z "$CLJ_HOME" ] && CLJ_HOME="/opt/langs/clojure"
+[ -z "$CLJ_LIB" ] &&  CLJ_LIB="$HOME/Libs/clojure"
+
+CLASSPATH="$CLASSPATH:$CLJ_HOME/*:."
+if [ -d $USER_LIB_DIR ] 
+then
+  CLASSPATH="$CLASSPATH:$CLJ_LIB/*:$CLJ_LIB"
+fi
+export CLASSPATH
+exec java clojure.main $@
+
