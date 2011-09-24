@@ -37,7 +37,7 @@
       (if (empty? children)
         (single-line indent [el-name attribs text] )
         (str prefix (open-el el-name attribs) ">\n"
-             (str-join "\n" (map #(apply el-to-string (cons (+ 4 indent) %)) (filter #(not (empty? %)) children)))
+             (str-join "" (map #(apply el-to-string (cons (+ 4 indent) %)) (filter #(not (empty? %)) children)))
 	     prefix "</" el-name ">\n"))))
 )  
 ;; pretty prints the xml data to a string according to the following
@@ -61,4 +61,4 @@
 ;; Children are always indented four spaces with respect to the parent
 ;;
 ;; xml-data is expected to be a vector in the following format:
-;;    [ el_name attribMapOrNil textOrNil [ child1 child2 ... ] ]
+;;    [ el_name attribMapOrNil textOrNil [ child1 ] [ child2 ] ...  ]

@@ -1,7 +1,8 @@
-(ns testspace
+(ns test.clojworks.xml
   (:use clojworks.xml clojure.test))
 
-(deftest test-single-line
+;; tests all the pretty printing functions for 
+(deftest test-spacing
   (is (= "<foo />\n" (el-to-string 0 "foo")))
   (is (= "    <foo />\n" (el-to-string 4 "foo")))
   )
@@ -24,5 +25,9 @@
   (is (= "<foo>\n</foo>\n" (el-to-string 0 "foo" nil nil [ ] )))
   (is (= "<foo>\n    <bar />\n</foo>\n" (el-to-string  0 "foo" nil nil [ "bar" ]  )))
   (is (= "<foo>\n    <bar />\n</foo>\n" (el-to-string  0 "foo" nil nil [ "bar" ]  )))
+  (is (= "<foo>\n    <bar />\n</foo>\n" (el-to-string  0 "foo" nil nil [ "bar" ]  )))
+  (is (= "<foo>\n    <bar />\n    <car />\n</foo>\n" (el-to-string  0 "foo" nil nil [ "bar" ] [ "car" ] )))
+  (is (= "<foo>\n    <bar>\n        <car />\n    </bar>\n</foo>\n" (el-to-string  0 "foo" nil nil [ "bar" nil nil ["car"] ] )))
+  (is (= "<foo>\n    <bar>\n        <car>Audi</car>\n    </bar>\n</foo>\n" (el-to-string  0 "foo" nil nil [ "bar" nil nil ["car" nil "Audi"] ] )))
   )
 (run-tests)
