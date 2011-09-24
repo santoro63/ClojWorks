@@ -23,7 +23,7 @@
 	text (el 2) ]
     (str (space indent)
 	 (open-el el-name attribs) 
-	 (if (nil? text) " />\n" (str ">" text "</" el-name ">\n")))))
+	 (if (nil? text) "/>\n" (str ">" text "</" el-name ">\n")))))
 
 (defn el-to-string
   ( [indent el-name]
@@ -62,3 +62,5 @@
 ;;
 ;; xml-data is expected to be a vector in the following format:
 ;;    [ el_name attribMapOrNil textOrNil [ child1 ] [ child2 ] ...  ]
+(defn pretty-print-xml [ xml-data ]
+  (apply el-to-string (cons 0 xml-data)))
