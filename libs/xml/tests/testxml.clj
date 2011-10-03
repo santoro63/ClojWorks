@@ -18,17 +18,22 @@
   (is (= "<bar/>\n" (el-to-string 0 ["bar" nil nil])))
   (is (= "<bar></bar>\n" (el-to-string 0 ["bar" nil ""])))
   (is (= "<bar>one two three</bar>\n" (el-to-string 0 ["bar" nil "one two three"])))
+  (is (= "<bar>one two three</bar>\n" (el-to-string 0 ["bar" "one two three"])))
   )
 
 (deftest test-with-children
-  (is (= "<foo>\n</foo>\n" (el-to-string 0 ["foo" nil nil nil] )))
   (is (= "<foo>\n</foo>\n" (el-to-string 0 ["foo" nil nil [ ]] )))
   (is (= "<foo>\n    <bar/>\n</foo>\n" (el-to-string  0 ["foo" nil nil [ "bar" ] ] )))
   (is (= "<foo>\n    <bar/>\n    <car/>\n</foo>\n" (el-to-string  0 ["foo" nil nil [ "bar" ] [ "car" ]] )))
   (is (= "<foo>\n    <bar>\n        <car/>\n    </bar>\n</foo>\n"
 	 (el-to-string  0 ["foo" nil nil [ "bar" nil nil ["car"] ]] )))
+  (is (= "<foo>\n    <bar>\n        <car/>\n    </bar>\n</foo>\n"
+	 (el-to-string  0 ["foo" [ "bar" ["car"] ]] )))
   (is (= "<foo>\n    <bar>\n        <car>Audi</car>\n    </bar>\n</foo>\n"
 	 (el-to-string  0 ["foo" nil nil [ "bar" nil nil ["car" nil "Audi"] ] ])))
+  (is (= "<foo>\n    <bar>\n        <car>Audi</car>\n    </bar>\n</foo>\n"
+	 (el-to-string  0 ["foo" [ "bar" ["car" "Audi"] ] ])))
   )
+
 
 (run-tests)
